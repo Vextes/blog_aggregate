@@ -36,6 +36,5 @@ function writeConfig(cfg: Config): void {
         db_url: cfg.dbUrl,
         current_user_name: cfg.currentUserName
     };
-    console.log(`to write: ${JSON.stringify(resultConfig)}`)
     fs.writeFileSync(configFilePath, JSON.stringify(resultConfig), {encoding: "utf-8"});
 }
