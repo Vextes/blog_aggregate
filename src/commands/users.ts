@@ -1,5 +1,6 @@
-import { setUser } from "src/config"
-import { createUser, getUser, } from "src/lib/db/queries/users";
+import { read } from "node:fs";
+import { readConfig, setUser } from "../config"
+import { createUser, getUser, getUsers } from "../lib/db/queries/users";
 
 export async function handlerLogin(cmdName: string, ...args: string[]) {
     if (args.length !== 1) {
@@ -29,4 +30,16 @@ export async function handlerRegister(cmdName: string, ...args: string[]) {
     const currUser = createdUser.name;
     setUser(currUser);
     console.log(`Current user has been set to ${currUser}`);
+}
+
+export async function handlerListAllUsers(cmdName: string) {
+    const userList = await getUsers();
+    
+    for (const user of userList) {
+        if (readConfig().currentUserName === user.name) {
+            console.log(` * ${user.name} (current)`);
+        } else {
+            console.log(` * ${user.name}`);
+        }
+    }
 }
