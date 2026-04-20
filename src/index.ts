@@ -1,5 +1,6 @@
 import { CommandsRegistry, registerCommand, runCommand } from "./commands/commands";
 import { handlerReset } from "./commands/reset";
+import { handlerAggFeed } from "./commands/rss_agg";
 import { handlerListAllUsers, handlerLogin, handlerRegister } from "./commands/users";
 
 async function main() {
@@ -8,6 +9,7 @@ async function main() {
     registerCommand(cmdReg, "register", handlerRegister)
     registerCommand(cmdReg, "reset", handlerReset)
     registerCommand(cmdReg, "users", handlerListAllUsers)
+    registerCommand(cmdReg, "agg", handlerAggFeed)
     const args = process.argv.slice(2);
     if (args.length === 0) {
         console.log("No arguments provided")

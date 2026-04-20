@@ -1,4 +1,3 @@
-import { read } from "node:fs";
 import { readConfig, setUser } from "../config"
 import { createUser, getUser, getUsers } from "../lib/db/queries/users";
 
