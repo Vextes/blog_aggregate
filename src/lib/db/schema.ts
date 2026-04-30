@@ -15,7 +15,15 @@ export const feeds = pgTable("feeds", {
     updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
     name: text("name").notNull(),
     url: text("url").notNull().unique(),
-    user_id: uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+    userId: uuid("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
 });
 
 export type Feed = typeof feeds.$inferSelect;
+
+export const feed_follows = pgTable("feed_follows", {
+    id: uuid("id").primaryKey().defaultRandom().notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow().$onUpdate(() => new Date()),
+    userId: uuid("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+    feedId: uuid("feedId").notNull().references(() => feeds.id, { onDelete: "cascade" }),
+});

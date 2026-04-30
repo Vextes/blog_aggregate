@@ -2,12 +2,12 @@ import { eq } from "drizzle-orm";
 import { db } from "..";
 import { feeds, users } from "../schema";
 
-export async function createFeed(name: string, url: string, user_id: string) {
-    const [result] = await db.insert(feeds).values({ name: name, url: url, user_id: user_id}).returning();
+export async function createFeed(name: string, url: string, userId: string) {
+    const [result] = await db.insert(feeds).values({ name: name, url: url, userId: userId}).returning();
     return result;
 }
 
 export async function getFeeds() {
-    const result = await db.select().from(feeds).leftJoin(users, eq(feeds.user_id, users.id));
+    const result = await db.select().from(feeds).leftJoin(users, eq(feeds.userId, users.id));
     return result;
 }
